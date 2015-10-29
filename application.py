@@ -2,11 +2,12 @@ import requests
 import re
 from flask import Flask
 from flask import request, redirect
+import os
 
 
 app = Flask(__name__)
 
-api_key = "fa97...1971"
+api_key = os.environ['API_KEY']
 app_name = "Trello-Github"
 
 
@@ -50,6 +51,15 @@ def add_comment(token, boards, commit):
 @app.route('/token')
 def token():
     return redirect('https://trello.com/1/authorize?key={}&name={}&expiration=never&response_type=token&scope=read,write'.format(api_key, app_name))
+
+
+@app.route('/test')
+def token():
+    if "board" not in request.args or "token" not in request.args:
+        return "Include board ID and token in the url (/token to get a token)"
+
+    url = "{}boards/{}/cards?key={}&token={}".format(endpoint, request.args['board'] api_key, request.args['token'])
+    return requests.get(url).text
 
 
 # order-processing=sgxSNLsD&com=teAbm4HS&token=5f155...209e8
