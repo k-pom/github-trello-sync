@@ -9,10 +9,10 @@ app = Flask(__name__)
 
 api_key = os.environ['API_KEY']
 app_name = "Trello-Github"
+endpoint = "https://api.trello.com/1/"
 
 
 def add_comment(token, boards, commit):
-    endpoint = "https://api.trello.com/1/"
 
     short_id = re.match(r".*#([0-9]+).*", commit['message']).group(1)
     board = re.match(r".*#([a-z-]+).*", commit['message']).group(1)
