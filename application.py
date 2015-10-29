@@ -54,11 +54,11 @@ def token():
 
 
 @app.route('/test')
-def token():
+def test():
     if "board" not in request.args or "token" not in request.args:
         return "Include board ID and token in the url (/token to get a token)"
 
-    url = "{}boards/{}/cards?key={}&token={}".format(endpoint, request.args['board'] api_key, request.args['token'])
+    url = "{}boards/{}/cards?key={}&token={}".format(endpoint, request.args['board'], api_key, request.args['token'])
     return requests.get(url).text
 
 
