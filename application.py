@@ -15,15 +15,10 @@ endpoint = "https://api.trello.com/1/"
 def add_comment(token, boards, commit):
 
     short_id = re.match(r".*#([0-9]+).*", commit['message']).group(1)
-    board = re.match(r".*#([a-z-]+).*", commit['message']).group(1)
-
-    if not short_id:
-        print("no short id")
-        return False
-
-    if not board:
-        print("no board_id")
-        return False
+    try:
+        board = re.match(r".*#([a-z-]+).*", commit['message']).group(1)
+    except:
+        board = 'default'
 
     if board not in boards:
         print("board id invalid")
@@ -62,7 +57,7 @@ def test():
     return requests.get(url).text
 
 
-# order-processing=sgxSNLsD&com=teAbm4HS&token=5f155...209e8
+#
 @app.route('/webhook', methods=["POST"])
 def hello_world():
 
